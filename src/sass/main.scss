@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
+
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+body {
+  box-sizing: border-box;
+  font-size: 10px;
+  font-family: 'Lato', sans-serif;
+  color: black;
+  height: 100%;
+  width: 100%;
+}
+
+.leaflet-container {
+  z-index: 1;
+  height: 100vh;
+}
+
+.title-box {
+  position: relative;
+  z-index: 10;
+  background-color: rgba(128, 128, 219, 0.66);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  clip-path: polygon(0 0, 100% 0, 100% 25%, 50% 100%, 0 25%);
+  user-select: none;
+
+  h1 {
+    font-family: 'Pattaya', sans-serif;
+    color: rgb(178, 230, 178);
+    position: absolute;
+    top: .4rem;
+    font-size: 3rem;
+    text-shadow: 1px 1px 5px black;
+  }
+}
+
+
+.search-box {
+  z-index: 15;
+  position: absolute;
+  top: 6.6rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  width: 18rem;
+  padding: .2rem .6rem;
+  background-color: rgb(122, 122, 122);
+  border: 1px solid rgb(192, 192, 192);
+  color: white;
+  border-radius: 10rem;
+  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.3);
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.452);
+  }
+
+  &::placeholder {
+    color: rgb(185, 185, 185);
+  }
+}
+
+
+.popup {
+  z-index: 20;
+  position: absolute;
+  top: 8.5rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: rgba(0, 0, 0, 0.6);
+  // box-shadow: 1px 2px 1rem 0 black;
+  border-radius: 2rem;
+  width: 75%;
+  max-width: 100rem;
+  height: 75%;
+  clip-path: circle(60% at 50% 50%);
+  opacity: 0;
+  transition: opacity 1000ms ease;
+}
+
+
+
+@media (max-width: 1300px) {
+  .title-box h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .title-box h1 {
+    font-size: 2rem;
+  }
+
+  .search-box {
+    font-size: 1rem;
+    width: 15rem;
+  }
+}
+
