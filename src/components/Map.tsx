@@ -2,6 +2,8 @@ import { LatLng } from 'leaflet';
 import { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
 
+
+
 interface Props {
   sendCoords: (coords: LatLng) => void;
 }
@@ -10,17 +12,34 @@ export const Map: React.FC<Props> = (props) => {
   const [curMarker, setCurMarker] = useState<LatLng>();
 
   function MapLogic() {
+    const popup : HTMLElement = document.querySelector('.popup')!;
+    const popupWidth = popup.offsetWidth;
+
+    const mapDiv : HTMLElement = document.querySelector('.leaflet-container')!;
+
     const map = useMapEvents({
       click: (e) => {
         // Check if coords are within bounds
         if(e.latlng.lat > 90 || e.latlng.lat < -90) return;
-        if(e.latlng.lng > 90 || e.latlng.lng < -90) return;
+        if(e.latlng.lng > 180 || e.latlng.lng < -180) return;
 
-        // Set view to coords
-        map.setView(e.latlng)
-        
+        console.log(e.latlng);
+        console.log(map);
+
         // Set temp marker
         setCurMarker(e.latlng);
+
+        // Set view to coords with offset
+        const x = map.latLngToContainerPoint(e.latlng).x - (popupWidth/4); // position map in the center of the second half of the popup
+        const y = map.latLngToContainerPoint(e.latlng).y;
+        const point = map.containerPointToLatLng([x, y]);
+
+        map.setView(point);
+        
+        // Blur map
+        mapDiv.style.filter = 'blur(.5rem)';
+
+        // remove blur when popup is closed
 
         // Send coords to App
         props.sendCoords(e.latlng)

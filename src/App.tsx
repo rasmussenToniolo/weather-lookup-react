@@ -16,21 +16,17 @@ export const App = () => {
 
   let popup:any;
 
-  useEffect(() => {
-    // Your code here
-    popup = document.querySelector<HTMLElement>('.popup')!;
-    popup.style.display = 'none';
-    popup.style.opacity = '0';
-  }, []);
-  
-
   async function handleMapClick(coords: LatLng) {
-    popup.style.display = 'block';
+    popup.style.visibility = 'visible';
     popup.style.opacity = '1';
-
+    setShouldDisplay(true);
     const data = await model.fetchData(coords);
     setPopupData(data);
   }
+
+  useEffect(() => {
+    popup = document.querySelector('.popup');
+  }, [])
 
   // Display popup
   
@@ -43,7 +39,7 @@ export const App = () => {
       </div>
       <SearchBox />
       <Map sendCoords={(coords) => handleMapClick(coords)} />
-      <Popup data={popupData} />
+      <Popup shouldDisplay={shouldDisplay} data={popupData} />
     </>
   )
 }
