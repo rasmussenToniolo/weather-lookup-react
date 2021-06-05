@@ -10,22 +10,48 @@ import './sass/main.scss';
 
 export const App = () => {
 
-  const [shouldDisplay, setShouldDisplay] = useState<boolean>(false);
 
-  const [popupData, setPopupData] = useState<object>();
+  const [popupData, setPopupData] = useState<any>(undefined);
 
-  let popup:any;
+  const [mapDiv, setMapDiv] = useState<HTMLElement>();
+
+  const [popupEl, setPopupEl] = useState<HTMLElement>();
+
 
   async function handleMapClick(coords: LatLng) {
-    popup.style.visibility = 'visible';
-    popup.style.opacity = '1';
-    setShouldDisplay(true);
-    const data = await model.fetchData(coords);
-    setPopupData(data);
+    if(!popupEl) return;
+    popupEl.style.visibility = 'visible';
+    popupEl.style.opacity = '1';
+    try {
+      const data = await model.fetchData(coords);
+      setPopupData(data);
+    } catch(err) {
+      console.log(err);
+      // handle fetching error, display in popup 'retrying...' 
+    }
+  }
+
+  function handleCloseBtn(e:any) {
+    console.log(e);
+    if(!popupEl) return;
+    if(!mapDiv) return;
+    
+    // set opacity of popup to 0 and remove blur from map
+    mapDiv.style.filter = 'none';
+    popupEl.style.opacity = '0';
+
+    // set visibility to hidden of popup after opacity reaches 0
+    // remove popupData
+    setTimeout(() => {
+      popupEl.style.visibility = 'hidden';
+      setPopupData(undefined);
+    }, 1000)
+
+    
   }
 
   useEffect(() => {
-    popup = document.querySelector('.popup');
+    setPopupEl(document.querySelector('.popup') as HTMLElement);
   }, [])
 
   // Display popup
@@ -38,8 +64,8 @@ export const App = () => {
         <h1>Weather Lookup</h1>
       </div>
       <SearchBox />
-      <Map sendCoords={(coords) => handleMapClick(coords)} />
-      <Popup shouldDisplay={shouldDisplay} data={popupData} />
+      <Map mapDiv={mapDiv} setMapDiv={setMapDiv} sendCoords={(coords) => handleMapClick(coords)} />
+      <Popup onClose={handleCloseBtn} data={popupData} />
     </>
   )
 }
