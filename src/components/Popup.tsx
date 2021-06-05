@@ -62,15 +62,17 @@ export const Popup: React.FC<{data: any, onClose: (e:any) => void}> = (props) =>
 
         <div className="popup-info__data">
           <div className="popup-info__data-cur-temp">
-            <p className="popup-info__data-cur-temp--cur">26</p>
-            <p className="popup-info__data-cur-temp--cur-dec">.7</p>
+            <p className="popup-info__data-cur-temp--cur">{props.data.weatherData.currentTemp}</p>
+            <p className="popup-info__data-cur-temp--cur-dec">.{props.data.weatherData.currentDecimal}</p>
           </div>
 
           <div className="popup-info__data-maxmin-temp">
-            <div className="popup-info__data-maxmin-temp-max">32</div>
-            <div className="popup-info__data-maxmin-temp-bar">&#8203;</div>
-            <div className="popup-info__data-maxmin-temp-min">16</div>
+            <p className="popup-info__data-maxmin-temp-max">{props.data.weatherData.maxTemp}</p>
+            <p className="popup-info__data-maxmin-temp-bar">&#8203;</p>
+            <p className="popup-info__data-maxmin-temp-min">{props.data.weatherData.minTemp}</p>
           </div>
+
+          <p className="popup-info__data-location">{props.data.locationData.city}, {props.data.countryData.name}</p>
         </div>
         </>
         }
