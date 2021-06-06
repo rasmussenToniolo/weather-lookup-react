@@ -8,6 +8,6 @@ export function SearchBox() {
   }
 
   return(
-    <input type="text" value={text} onChange={updateText} className="search-box" placeholder="Search by city or country..."></input>
+    <input type="text" value={text} onChange={updateText} className="search-box" placeholder="Search by city, or click anywhere on the map!"></input>
   )
 }

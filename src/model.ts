@@ -46,6 +46,7 @@ export async function getWeatherData(coords: LatLng) {
       speed: "KM/H",
     },
     weatherConditions: weatherData.current.weather[0],
+    dailyData: weatherData.daily,
   };
 
   return weatherObj;
