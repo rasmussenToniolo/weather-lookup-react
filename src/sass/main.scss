@@ -15,9 +15,13 @@ $low-temp-color: rgb(127, 209, 241);
   box-sizing: inherit;
 }
 
+html {
+  font-size: 62.5%;
+}
+
+
 body {
   box-sizing: border-box;
-  font-size: 10px;
   font-family: 'Lato', sans-serif;
   color: black;
   height: 100%;
@@ -41,7 +45,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  height: 5rem;
+  height: 6.9rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,8 +57,8 @@ body {
     font-family: 'Pattaya', sans-serif;
     color: rgb(178, 230, 178);
     position: absolute;
-    top: .4rem;
-    font-size: 3rem;
+    top: .55rem;
+    font-size: 4.1rem;
     text-shadow: 1px 1px 5px black;
   }
 }
@@ -63,21 +67,21 @@ body {
 .search-box {
   z-index: 15;
   position: absolute;
-  top: 6.6rem;
+  top: 9.1rem;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1.2rem;
-  width: 27rem;
-  padding: .2rem .6rem;
+  font-size: 1.6rem;
+  width: 37rem;
+  padding: .3rem .8rem;
   background-color: rgb(122, 122, 122);
   border: 1px solid rgb(192, 192, 192);
   color: white;
-  border-radius: 10rem;
-  box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, 0.3);
+  border-radius: 14rem;
+  box-shadow: 0 0 2.1rem 0 rgba(0, 0, 0, 0.3);
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.452);
+    box-shadow: 0 0 1.4rem 0 rgba(0, 0, 0, 0.452);
   }
 
   &::placeholder {
@@ -91,12 +95,12 @@ body {
   align-items: center;
 
   &__circle {
-    width: .6rem;
-    height: .6rem;
+    width: .8rem;
+    height: .8rem;
     border-radius: 50%;
     background-color: $white;
-    margin: .4rem;
-    box-shadow: 0 0 .8rem 0 rgba(0, 0, 0, 0.281);
+    margin: .55rem;
+    box-shadow: 0 0 1.1rem 0 rgba(0, 0, 0, 0.281);
     animation-name: circleJump;
     animation-duration: 1.4s;
     animation-iteration-count: infinite;
@@ -119,7 +123,7 @@ body {
 @keyframes circleJump {
 
   30% {
-    transform: translateY(-.4rem);
+    transform: translateY(-.55rem);
   }
 
   60% {
@@ -130,15 +134,15 @@ body {
 .popup {
   z-index: 20;
   position: absolute;
-  top: 8.5rem;
+  top: 11.7rem;
   left: 50%;
   transform: translate(-50%, 0);
   background-color: rgba($light-purple, .7);
-  box-shadow: 1px 2px 2rem 0 rgba(0, 0, 0, 0.418);
-  border-radius: 4rem;
+  box-shadow: 1px 2px 2.8rem 0 rgba(0, 0, 0, 0.418);
+  border-radius: 5.5rem;
   width: 75%;
-  max-width: 100rem;
-  height: 75%;
+  max-width: 138rem;
+  height: 69rem;
   // clip-path: circle(60% at 50% 50%);
   opacity: 0;
   visibility: hidden;
@@ -157,19 +161,19 @@ body {
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.568);
       &-cur-temp {
         position: absolute;
-        top: 3.5rem;
+        top: 4.8rem;
         left: 50%;
-        transform: translateX(calc(-50% + 1rem));
+        transform: translateX(calc(-50% + 1.4rem));
 
         &--cur {
-          font-size: 8rem;
+          font-size: 11rem;
           font-weight: 200;
           color: $white;
           display: inline-block;
         }
 
         &--cur-dec {
-          font-size: 2rem;
+          font-size: 2.8rem;
           font-weight: 300;
           color: $white;
           display: inline-block;
@@ -178,7 +182,7 @@ body {
         &::after {
           content: "°C";
           vertical-align: 180%;
-          font-size: 2rem;
+          font-size: 2.8rem;
           font-weight: 300;
           color: $white;
         }
@@ -186,21 +190,21 @@ body {
 
       &-maxmin-temp {
         position: absolute;
-        top: 12rem;
+        top: 16.6rem;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 1.5rem;
+        font-size: 2.1rem;
         font-weight: 300;
 
         > *:not(:nth-child(2)) {
-          padding: .8rem;
+          padding: 1.1rem;
           display: inline-block;
           // text-shadow: 1px 1px 2px black;
 
           &::after {
-            margin-left: .2rem;
+            margin-left: .28rem;
             content: "°C";
-            font-size: .6rem;
+            font-size: .83rem;
             font-weight: 400;
             vertical-align: 100%;
           }
@@ -217,7 +221,7 @@ body {
         &-bar {
           display: inline-block;
           border-radius: 40%;
-          padding: .8rem 0;
+          padding: 1.1rem 0;
           border: 2px solid $white;
         }
 
@@ -225,56 +229,54 @@ body {
 
       &-location {
         position: absolute;
-        top: 16rem;
+        top: 22.1rem;
         left: 50%;
         transform: translateX(-50%);
         color: $white;
-        font-size: 1.2rem;
+        font-size: 1.6rem;
         font-weight: 400;
         text-transform: capitalize;
       }
 
       &-date {
         position: absolute;
-        top: 17.5rem;
+        top: 24.15rem;
         left: 50%;
         transform: translateX(-50%);
         color: $white;
-        font-size: 1rem;
+        font-size: 1.4rem;
       }
 
       &-time {
         position: absolute;
-        top: 19rem;
+        top: 26.2rem;
         left: 50%;
         transform: translateX(-50%);
         color: $white;
-        font-size: 2rem;
+        font-size: 2.8rem;
       }
 
       &-weather {
         position: absolute;
-        top: 22rem;
+        top: 30.4rem;
         left: 50%;
         width: 80%;
         transform: translateX(-50%);
-        font-size: 1.6rem;
+        font-size: 2.2rem;
         color: $white;
         text-transform: capitalize;
         display: grid;
         grid-template-areas: 
         "space icon desc"
         "forecast forecast forecast";
-        grid-template-columns: 1fr 10rem 1fr;
-        // border: 2px solid black;
+        grid-template-columns: 1fr 14rem 1fr;
 
         .bi {
           grid: icon;
-          height: 8rem;
-          width: 8rem;
+          height: 11rem;
+          width: 11rem;
           filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.404));
-          // border: 2px solid black;
-          margin-left: .6rem;
+          margin-left: .8rem;
         }
         
         &-desc {
@@ -287,44 +289,43 @@ body {
           grid: forecast;
           grid-column: 1/4;
           width: 100%;
-          margin-top: 1rem;
-          padding: 0 1rem;
+          margin-top: 1.4rem;
+          padding: 0 1.4rem;
           display: flex;
           flex-direction: row;
           overflow: scroll;
           overflow-y: hidden; // Add custom scroll bar
-          border-radius: .6rem;
-          box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.315) inset;
-          // border: 2px solid black;
+          border-radius: .8rem;
+          box-shadow: 0 0 1.4rem 0 rgba(0, 0, 0, 0.315) inset;
 
           &-item {
             position: relative;
-            min-width: 10rem;
-            height: 13rem;
-            border-radius: 1rem;
+            min-width: 14rem;
+            height: 18rem;
+            border-radius: 1.4rem;
             background-color: rgba(darken($light-purple, 20%), 0.3);
-            margin: .6rem 0;
+            margin: .83rem 0;
             &:not(:last-child) {
-              margin-right: .6rem;
+              margin-right: .83rem;
             }
 
             .bi {
-              margin: 1rem;
-              width: 4rem;
-              height: 4rem;
+              margin: 1.4rem;
+              width: 5.5rem;
+              height: 5.5rem;
             }
             
             &--temp {
               display: inline-block;
-              font-size: 2rem;
+              font-size: 2.8rem;
               font-weight: 300;
               position: absolute;
-              top: 1.6rem;
+              top: 2.2rem;
 
               &::after {
                 content: "°C";
                 margin-left: 1px;
-                font-size: .8rem;
+                font-size: 1.1rem;
                 font-weight: 400;
                 vertical-align: 80%;
               }
@@ -335,11 +336,11 @@ body {
             &--maxmin {
               text-align: center;
               position: relative;
-              bottom: 1rem;
+              bottom: 1.4rem;
               
               &-max, &-min {
                 display: inline-block;
-                font-size: 1.2rem;
+                font-size: 1.66rem;
                 position: relative;
                 bottom: 2px;
                 font-weight: 300;
@@ -347,7 +348,7 @@ body {
 
                 &::after {
                   content: "°C";
-                  font-size: .7rem;
+                  font-size: .97rem;
                   font-weight: 400;
                   vertical-align: 70%;
                 }
@@ -365,7 +366,7 @@ body {
                 display: inline-block;
                 border: 1px solid white;
                 border-radius: 40%;
-                margin: 0 1rem;
+                margin: 0 1.4rem;
                 width: 0;
 
               }
@@ -373,7 +374,7 @@ body {
 
             &--bar {
               position: relative;
-              bottom: .4rem;
+              bottom: .55rem;
               border: 2px solid $white;
               border-radius: 40%;
               height: 0;
@@ -382,13 +383,13 @@ body {
             }
 
             &--date {
-              font-size: 1rem;
+              font-size: 1.4rem;
               text-align: center;
             }
 
             &--desc {
-              margin-top: .5rem;
-              font-size: 1.2rem;
+              margin-top: .69rem;
+              font-size: 1.66rem;
               text-align: center;
             }
           }
@@ -407,7 +408,7 @@ body {
     &__bookmark-btn {
       display: inline-block;
       position: absolute;
-      top: 2.5rem;
+      top: 3.5rem;
       right: 0;
       cursor: pointer;
       transition: transform 300ms ease;
@@ -417,8 +418,8 @@ body {
       }
       .bi {
         filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.301));
-        width: 3rem;
-        height: 3rem;
+        width: 4.1rem;
+        height: 4.1rem;
         color: $white;
       }
     }
@@ -426,19 +427,19 @@ body {
     &__close-btn {
       display: inline-block;
       position: absolute;
-      top: 2.5rem;
-      left: 2.5rem;
+      top: 3.5rem;
+      left: 3.5rem;
       cursor: pointer;
       transition: all 300ms ease;
-      filter: drop-shadow(0 0 .6rem rgba(0, 0, 0, 0.404));
+      filter: drop-shadow(0 0 .8rem rgba(0, 0, 0, 0.404));
   
       &:hover {
-        filter: drop-shadow(2px 2px .8rem rgba(0, 0, 0, 0.274));
+        filter: drop-shadow(2px 2px 1.1rem rgba(0, 0, 0, 0.274));
         transform: scale(1.2);
       }
       .bi {
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 2.1rem;
+        height: 2.1rem;
         color: rgb(236, 236, 236);
       }
     }
@@ -449,12 +450,12 @@ body {
 
   &-map {
     grid: map;
-    border-radius: 3.5rem;
-    margin: 1rem;
+    border-radius: 4.8rem;
+    margin: 1.4rem;
     background-color: rgba(255, 255, 255, 0.178);
 
     .leaflet-container {
-      border-radius: 3.5rem;
+      border-radius: 4.8rem;
       height: 100%;
     }
   }
@@ -464,18 +465,18 @@ body {
 
 @media (max-width: 1300px) {
   .title-box h1 {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
   }
 }
 
 @media (max-width: 800px) {
   .title-box h1 {
-    font-size: 2rem;
+    font-size: 2.8rem;
   }
 
   .search-box {
-    font-size: 1rem;
-    width: 20rem;
+    font-size: 1.4rem;
+    width: 28rem;
   }
 }
 
