@@ -2,7 +2,7 @@ import { useState } from "react";
 import {PopupForecast} from './PopupForecast';
 
 
-export const Popup: React.FC<{data: any, onClose: (e:any) => void}> = (props) => {
+export const Popup: React.FC<{data: any, onClose: (e:any) => void, onBookmark: () => void}> = (props) => {
 
   // if(!props.data) console.log('waiting'); else console.log(props.data);
   const [bookmarkHovered, setBookmarkHovered] = useState(false);
@@ -130,7 +130,7 @@ export const Popup: React.FC<{data: any, onClose: (e:any) => void}> = (props) =>
           </svg>
         </div>
 
-        <div onClick={() => setBookmarked((prevState) => !prevState)} onMouseEnter={() => setBookmarkHovered(true)} onMouseLeave={() => setBookmarkHovered(false)} className="popup-info__bookmark-btn">
+        <div onClick={() => {setBookmarked((prevState) => !prevState); props.onBookmark()}} onMouseEnter={() => setBookmarkHovered(true)} onMouseLeave={() => setBookmarkHovered(false)} className="popup-info__bookmark-btn">
           {bookmarkHovered && !bookmarked ?
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-bookmark-plus-fill" viewBox="0 0 16 16">
               <path fillRule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm6.5-11a.5.5 0 0 0-1 0V6H6a.5.5 0 0 0 0 1h1.5v1.5a.5.5 0 0 0 1 0V7H10a.5.5 0 0 0 0-1H8.5V4.5z"/>
@@ -165,6 +165,7 @@ export const Popup: React.FC<{data: any, onClose: (e:any) => void}> = (props) =>
           </div>
 
           <p className="popup-info__data-location">{props.data.locationData.city}, {props.data.countryData.name}</p>
+          {/* <p className="popup-info__data-location">This is a very long city name somewhere in this world what is the worst that could happen?</p> */}
 
           <p className="popup-info__data-date">{dateStr}</p>
           <p className="popup-info__data-time">{timeStr}</p>

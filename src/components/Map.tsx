@@ -8,6 +8,9 @@ interface Props {
   sendCoords: (coords: LatLng) => void;
   setMapDiv: (mapDiv:any) => void;
   mapDiv: any;
+  bookmarks: any[];
+  curMarker: any;
+  setCurMarker: (coords: LatLng) => void;
 }
 
 export const Map: React.FC<Props> = (props) => {
@@ -29,7 +32,7 @@ export const Map: React.FC<Props> = (props) => {
         
         
         // Set temp marker
-        setCurMarker(e.latlng);
+        props.setCurMarker(e.latlng);
         
         // Set view to coords with offset
         const x = map.latLngToContainerPoint(e.latlng).x - (popupWidth/4); // position map in the center of the second half of the popup
@@ -53,18 +56,23 @@ export const Map: React.FC<Props> = (props) => {
   }
   
   return(
-    <MapContainer center={[20, 25]} zoom={3} zoomControl={false} scrollWheelZoom={true}>
-      <MapLogic /> {/* Doesn't display anything, it is just to get map instance */}
-      <TileLayer
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {curMarker ? <Marker position={curMarker}></Marker> : ''}
-      {/* <Marker position={[51.505, -0.09]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker> */}
-    </MapContainer>
+    <>
+      <MapContainer center={[20, 25]} zoom={3} zoomControl={false} scrollWheelZoom={true}>
+        <MapLogic /> {/* Doesn't display anything, it is just to get map instance */}
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {props.curMarker ? <Marker position={props.curMarker}></Marker> : ''}
+        {props.bookmarks.map((coords) => (
+          <Marker key={`marker:${coords.lat}${coords.lng}`} position={coords}>
+            <Popup>
+              A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+          </Marker>
+
+        ))}
+      </MapContainer>
+    </>
   )
 }

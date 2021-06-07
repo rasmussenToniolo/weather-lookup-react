@@ -9,7 +9,7 @@ import './sass/main.scss';
 
 
 export const App = () => {
-
+  const [curCoords, setCurCoords] = useState<LatLng>();
 
   const [popupData, setPopupData] = useState<any>(undefined);
 
@@ -17,11 +17,17 @@ export const App = () => {
 
   const [popupEl, setPopupEl] = useState<HTMLElement>();
 
+  const [bookmarks, setBookmarks] = useState<any[]>([]);
+
+  const [curMarker, setCurMarker] = useState<any>();
+
 
   async function handleMapClick(coords: LatLng) {
     if(!popupEl) return;
     popupEl.style.visibility = 'visible';
     popupEl.style.opacity = '1';
+    setCurCoords(coords);
+
     try {
       const data = await model.fetchData(coords);
       setPopupData(data);
@@ -35,6 +41,8 @@ export const App = () => {
     console.log(e);
     if(!popupEl) return;
     if(!mapDiv) return;
+
+    setCurMarker(undefined);
     
     // set opacity of popup to 0 and remove blur from map
     mapDiv.style.filter = 'none';
@@ -48,6 +56,12 @@ export const App = () => {
     }, 1000)
 
     
+  }
+
+  function handleBookmarkClick() {
+    console.log(curCoords);
+
+    setBookmarks([...bookmarks, curCoords])
   }
 
   useEffect(() => {
@@ -64,8 +78,8 @@ export const App = () => {
         <h1>Weather Lookup</h1>
       </div>
       <SearchBox />
-      <Map mapDiv={mapDiv} setMapDiv={setMapDiv} sendCoords={(coords) => handleMapClick(coords)} />
-      <Popup onClose={handleCloseBtn} data={popupData} />
+      <Map curMarker={curMarker} setCurMarker={setCurMarker} bookmarks={bookmarks} mapDiv={mapDiv} setMapDiv={setMapDiv} sendCoords={(coords) => handleMapClick(coords)} />
+      <Popup onBookmark={handleBookmarkClick} onClose={handleCloseBtn} data={popupData} />
     </>
   )
 }

@@ -36,6 +36,7 @@ body {
 
 
 
+
 .title-box {
   // filter: drop-shadow(0 1rem 2rem black);
   position: relative;
@@ -236,11 +237,15 @@ body {
         font-size: 1.6rem;
         font-weight: 400;
         text-transform: capitalize;
+        // border: 1px solid black;
+        text-align: center;
+        width: 100%;
+        // margin-bottom: 1px;
       }
 
       &-date {
         position: absolute;
-        top: 24.15rem;
+        top: 25.8rem;
         left: 50%;
         transform: translateX(-50%);
         color: $white;
@@ -249,7 +254,7 @@ body {
 
       &-time {
         position: absolute;
-        top: 26.2rem;
+        top: 27rem;
         left: 50%;
         transform: translateX(-50%);
         color: $white;
@@ -478,5 +483,18 @@ body {
     font-size: 1.4rem;
     width: 28rem;
   }
+}
+
+@media (max-width: 1200px) {
+  // change popup layout to vertical
+  .popup {
+    display: grid;
+    grid-template-rows: 50% 50%;
+    grid-template-areas: 
+    "map"
+    "info"
+    ;
+  }
+
 }
 

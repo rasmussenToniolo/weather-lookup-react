@@ -19,7 +19,7 @@ export const PopupForecast: React.FC<{data: any, getIcon: (id: number) => JSX.El
   return (
     <div className="popup-info__data-weather-forecast">
         {props.data.slice(1).map((data: any) => (
-        <div className="popup-info__data-weather-forecast-item">
+        <div key={`item-${data.dt}`} className="popup-info__data-weather-forecast-item">
           {props.getIcon(data.weather[0].id)}
           
           <p className="popup-info__data-weather-forecast-item--temp">{getTempC(data.temp.day)}</p>
