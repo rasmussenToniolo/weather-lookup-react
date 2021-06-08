@@ -21,6 +21,8 @@ export const App = () => {
 
   const [curMarker, setCurMarker] = useState<any>();
 
+  const [bookmarked, setBookmarked] = useState(false);
+
 
   async function handleMapClick(coords: LatLng) {
     if(!popupEl) return;
@@ -38,19 +40,22 @@ export const App = () => {
   }
 
   function handleCloseBtn(e:any) {
-    console.log(e);
+    // console.log(e);
     if(!popupEl) return;
     if(!mapDiv) return;
 
     setCurMarker(undefined);
+
     
     // set opacity of popup to 0 and remove blur from map
     mapDiv.style.filter = 'none';
     popupEl.style.opacity = '0';
-
+    
     // set visibility to hidden of popup after opacity reaches 0
     // remove popupData
     setTimeout(() => {
+      // Reset bookmark state
+      setBookmarked(false)
       popupEl.style.visibility = 'hidden';
       setPopupData(undefined);
     }, 1000)
@@ -59,7 +64,9 @@ export const App = () => {
   }
 
   function handleBookmarkClick() {
-    console.log(curCoords);
+    // console.log(curCoords);
+
+    
 
     setBookmarks([...bookmarks, curCoords])
   }
@@ -79,7 +86,7 @@ export const App = () => {
       </div>
       <SearchBox />
       <Map curMarker={curMarker} setCurMarker={setCurMarker} bookmarks={bookmarks} mapDiv={mapDiv} setMapDiv={setMapDiv} sendCoords={(coords) => handleMapClick(coords)} />
-      <Popup onBookmark={handleBookmarkClick} onClose={handleCloseBtn} data={popupData} />
+      <Popup bookmarked={bookmarked} setBookmarked={setBookmarked} onBookmark={handleBookmarkClick} onClose={handleCloseBtn} data={popupData} />
     </>
   )
 }
