@@ -182,7 +182,7 @@ export const Popup: React.FC<{data: any, onClose: (e:any) => void, onBookmark: (
         ) : ''}
       </div>
 
-      <div className="popup__map"></div>
+      {/* <div className="popup__map"></div> */}
     </div>
         
   )
