@@ -9,6 +9,7 @@
   border-radius: 5.5rem;
   width: 80%;
   max-width: 150rem;
+  height: 75%;
   min-height: 72rem;
   opacity: 0;
   visibility: hidden;
@@ -17,13 +18,16 @@
   // grid-template-columns: 50% 50%;
   display: flex;
   flex-direction: column-reverse;
+  justify-content: space-between;
   align-items: center;
 
   &__controls {
+    height: 9rem;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 2rem;
 
     .bi {
       color: $white;
@@ -33,7 +37,7 @@
     > div {
       cursor: pointer;
       transition: transform 300ms ease;
-      margin: 0 3rem;
+      margin: 0 4rem;
 
       &:hover {
         filter: drop-shadow(2px 2px 1.1rem rgba(0, 0, 0, 0.178));
@@ -53,15 +57,13 @@
   }
 
   &__loading {
-    grid: data;
-    grid-row: 2;
+    border: 2px solid black;
+    width: 100%;
+    height: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    .loading-icon {
-      transform: translateY(-4rem);
-    }
   }
 
   // &__map {
