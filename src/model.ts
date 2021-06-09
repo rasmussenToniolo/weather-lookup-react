@@ -22,7 +22,31 @@ export async function fetchData(coords: LatLng) {
 
 }
 
-export async function getWeatherData(coords: LatLng) {
+export async function fetchDataCity(city: string) {
+  try {
+    console.log(city)
+    const geoJSON = await getJSON(`https://geocode.xyz/${city}?json=1`);
+
+    console.log(geoJSON);
+
+    const coords = {lat: +geoJSON.latt, lng: +geoJSON.longt};
+
+    const weatherData = await getWeatherData(coords);
+
+    const locationData = await getLocationData(coords);
+
+    const countryData = await getCountryData(locationData.code);
+
+    const dateData = await getDateTimeData(weatherData.timezone);
+
+  
+    return {weatherData, locationData, countryData, dateData};
+  } catch(err) {
+    throw err;
+  }
+}
+
+export async function getWeatherData(coords: any) {
   const url = WEATHER_API_URL(coords);
   const weatherData = await getJSON(url);
   // .timezone, .current.weather[0].description, .current.temp, .daily[0].temp.max/min, .current.wind_speed, .daily[0].wind_gust, .current.wind_deg, .current.dt, .current.sunrise, .current.sunset
@@ -52,14 +76,17 @@ export async function getWeatherData(coords: LatLng) {
   return weatherObj;
 }
 
-export async function getLocationData(coords: LatLng) {
+export async function getLocationData(coords: any) {
   const url = LOCATION_API_URL(coords);
   const locationData = await getJSON(url);
+  console.log(locationData);
   // .city, .prov
 
   const locationObj = {
     city: locationData.city.toLowerCase(),
     code: locationData.prov,
+    lat: +locationData.latt,
+    lng: +locationData.longt,
   };
   return locationObj;
 }

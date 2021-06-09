@@ -11,18 +11,25 @@ interface Props {
   bookmarks: any[];
   curMarker: any;
   setCurMarker: (coords: LatLng) => void;
+  setMapInstance: (map: any) => void;
 }
 
 export const Map: React.FC<Props> = (props) => {
   const [curMarker, setCurMarker] = useState<LatLng>();
+  
+  let mapInstance: any;
 
   useEffect(() => {
     props.setMapDiv(document.querySelector('.leaflet-container'));
-  }, []);
+    props.setMapInstance(mapInstance);
+    console.log(mapInstance);
+  });
 
   function MapLogic() {
     const popup : HTMLElement = document.querySelector('.popup')!;
     const popupWidth = popup.offsetWidth;
+
+    mapInstance = useMap();
 
     const map = useMapEvents({
       click: (e) => {
@@ -34,12 +41,12 @@ export const Map: React.FC<Props> = (props) => {
         // Set temp marker
         props.setCurMarker(e.latlng);
         
-        // Set view to coords with offset
-        const x = map.latLngToContainerPoint(e.latlng).x - (popupWidth/4); // position map in the center of the second half of the popup
-        const y = map.latLngToContainerPoint(e.latlng).y;
-        const point = map.containerPointToLatLng([x, y]);
+        // // Set view to coords with offset
+        // const x = map.latLngToContainerPoint(e.latlng).x - (popupWidth/4); // position map in the center of the second half of the popup
+        // const y = map.latLngToContainerPoint(e.latlng).y;
+        // const point = map.containerPointToLatLng([x, y]);
         
-        map.setView(point);
+        map.setView(e.latlng);
         
         
         // Blur map

@@ -9,7 +9,9 @@ import './sass/main.scss';
 
 
 export const App = () => {
-  const [curCoords, setCurCoords] = useState<LatLng>();
+  const [mapInstance, setMapInstance] = useState<any>();
+
+  const [curCoords, setCurCoords] = useState<any>();
 
   const [popupData, setPopupData] = useState<any>(undefined);
 
@@ -24,6 +26,26 @@ export const App = () => {
   const [bookmarked, setBookmarked] = useState(false);
 
 
+  async function handleSearch(search: string) {
+    if(!popupEl) return;
+    popupEl.style.visibility = 'visible';
+    popupEl.style.opacity = '1';
+    try {
+      const data = await model.fetchDataCity(search);
+
+      const coords = {lat: data.locationData.lat, lng: data.locationData.lng};
+
+      mapInstance.setView(coords, 11, {animated: true});
+
+      setCurCoords(coords);
+      setCurMarker(coords);
+      setPopupData(data);
+
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
   async function handleMapClick(coords: LatLng) {
     if(!popupEl) return;
     popupEl.style.visibility = 'visible';
@@ -35,12 +57,10 @@ export const App = () => {
       setPopupData(data);
     } catch(err) {
       console.log(err);
-      // handle fetching error, display in popup 'retrying...' 
     }
   }
 
   function handleCloseBtn(e:any) {
-    // console.log(e);
     if(!popupEl) return;
     if(!mapDiv) return;
 
@@ -63,10 +83,7 @@ export const App = () => {
     
   }
 
-  function handleBookmarkClick() {
-    // console.log(curCoords);
-
-    
+  function handleBookmarkClick() {    
 
     setBookmarks([...bookmarks, curCoords])
   }
@@ -75,17 +92,13 @@ export const App = () => {
     setPopupEl(document.querySelector('.popup') as HTMLElement);
   }, [])
 
-  // Display popup
-  
-  // Fetch data from coords
-  // Display data or 'retrying' message
   return (
     <>
       <div className="title-box">
         <h1>Weather Lookup</h1>
       </div>
-      <SearchBox />
-      <Map curMarker={curMarker} setCurMarker={setCurMarker} bookmarks={bookmarks} mapDiv={mapDiv} setMapDiv={setMapDiv} sendCoords={(coords) => handleMapClick(coords)} />
+      <SearchBox onSearch={handleSearch} />
+      <Map setMapInstance={setMapInstance} curMarker={curMarker} setCurMarker={setCurMarker} bookmarks={bookmarks} mapDiv={mapDiv} setMapDiv={setMapDiv} sendCoords={(coords) => handleMapClick(coords)} />
       <Popup bookmarked={bookmarked} setBookmarked={setBookmarked} onBookmark={handleBookmarkClick} onClose={handleCloseBtn} data={popupData} />
     </>
   )
