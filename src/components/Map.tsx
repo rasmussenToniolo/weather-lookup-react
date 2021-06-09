@@ -69,10 +69,13 @@ export const Map: React.FC<Props> = (props) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {props.curMarker ? <Marker position={props.curMarker}></Marker> : ''}
-        {props.bookmarks.map((coords) => (
+        {props.bookmarks.map(({coords, data}) => (
           <Marker key={`marker:${coords.lat}${coords.lng}`} position={coords}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
+              {/* Display bookmark data here */}
+              {/* Marker popup shall have an update button to fetch new data; do not retry button, just announce that data couldn't be fetched. */}
+              {/* Have an expand button to make the big popup appear */}
             </Popup>
           </Marker>
 

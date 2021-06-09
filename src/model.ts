@@ -107,3 +107,11 @@ export async function getDateTimeData(timezone: string) {
   };
   return dateTimeObj;
 }
+
+export function setLocalStorage(bookmarks: any[]) {
+  localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+}
+
+export function getLocalStorage() {
+  return localStorage.getItem('bookmarks');
+}

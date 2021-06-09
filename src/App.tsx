@@ -11,7 +11,7 @@ import './sass/main.scss';
 export const App = () => {
   const [mapInstance, setMapInstance] = useState<any>();
 
-  const [curCoords, setCurCoords] = useState<any>();
+  const [curData, setCurData] = useState<any>();
 
   const [popupData, setPopupData] = useState<any>(undefined);
 
@@ -19,13 +19,19 @@ export const App = () => {
 
   const [popupEl, setPopupEl] = useState<HTMLElement>();
 
-  const [bookmarks, setBookmarks] = useState<any[]>([]);
+  const [bookmarks, setBookmarks] = useState<any>([]);
 
   const [curMarker, setCurMarker] = useState<any>();
 
   const [bookmarked, setBookmarked] = useState(false);
 
   const [text, setText] = useState('');
+
+  function getBookmarks() {
+    setBookmarks(JSON.parse(model.getLocalStorage() || '[]'));
+  }
+
+  
 
 
   async function handleSearch(search: string) {
@@ -39,11 +45,12 @@ export const App = () => {
 
       mapInstance.setView(coords, 11, {animated: true});
 
-      setCurCoords(coords);
+      setCurData({coords, data});
       setCurMarker(coords);
       setPopupData(data);
 
     } catch(err) {
+      // Show retry button on popup
       console.log(err);
     }
   }
@@ -52,12 +59,13 @@ export const App = () => {
     if(!popupEl) return;
     popupEl.style.visibility = 'visible';
     popupEl.style.opacity = '1';
-    setCurCoords(coords);
-
+    
     try {
       const data = await model.fetchData(coords);
+      setCurData({coords, data});
       setPopupData(data);
     } catch(err) {
+      // Show retry button on popup
       console.log(err);
     }
   }
@@ -88,13 +96,14 @@ export const App = () => {
     
   }
 
-  function handleBookmarkClick() {    
-
-    setBookmarks([...bookmarks, curCoords])
+  function handleBookmarkClick() {
+    model.setLocalStorage([...bookmarks, curData]);
+    setBookmarks([...bookmarks, curData]);
   }
 
   useEffect(() => {
     setPopupEl(document.querySelector('.popup') as HTMLElement);
+    getBookmarks();
   }, [])
 
   return (
