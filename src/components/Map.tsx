@@ -15,19 +15,17 @@ interface Props {
 }
 
 export const Map: React.FC<Props> = (props) => {
-  const [curMarker, setCurMarker] = useState<LatLng>();
   
   let mapInstance: any;
 
   useEffect(() => {
     props.setMapDiv(document.querySelector('.leaflet-container'));
     props.setMapInstance(mapInstance);
-    console.log(mapInstance);
   });
 
   function MapLogic() {
-    const popup : HTMLElement = document.querySelector('.popup')!;
-    const popupWidth = popup.offsetWidth;
+    // const popup : HTMLElement = document.querySelector('.popup')!;
+    // const popupWidth = popup.offsetWidth;
 
     mapInstance = useMap();
 

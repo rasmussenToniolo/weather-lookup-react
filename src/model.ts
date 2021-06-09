@@ -3,7 +3,6 @@ import { COUNTRY_API_URL, DATE_TIME_API_URL, LOCATION_API_URL, WEATHER_API_URL }
 import { getJSON } from "./helpers";
 
 export async function fetchData(coords: LatLng) {
-  // console.log(coords);
 
   try {
     const weatherData = await getWeatherData(coords);
@@ -24,10 +23,7 @@ export async function fetchData(coords: LatLng) {
 
 export async function fetchDataCity(city: string) {
   try {
-    console.log(city)
     const geoJSON = await getJSON(`https://geocode.xyz/${city}?json=1`);
-
-    console.log(geoJSON);
 
     const coords = {lat: +geoJSON.latt, lng: +geoJSON.longt};
 
@@ -51,7 +47,6 @@ export async function getWeatherData(coords: any) {
   const weatherData = await getJSON(url);
   // .timezone, .current.weather[0].description, .current.temp, .daily[0].temp.max/min, .current.wind_speed, .daily[0].wind_gust, .current.wind_deg, .current.dt, .current.sunrise, .current.sunset
 
-  // Have state that changes data manipulation based on celcius or farenheit
   const weatherObj = {
     timezone: weatherData.timezone,
     description: weatherData.current.weather[0].description,
@@ -79,7 +74,6 @@ export async function getWeatherData(coords: any) {
 export async function getLocationData(coords: any) {
   const url = LOCATION_API_URL(coords);
   const locationData = await getJSON(url);
-  console.log(locationData);
   // .city, .prov
 
   const locationObj = {

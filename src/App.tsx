@@ -25,6 +25,8 @@ export const App = () => {
 
   const [bookmarked, setBookmarked] = useState(false);
 
+  const [text, setText] = useState('');
+
 
   async function handleSearch(search: string) {
     if(!popupEl) return;
@@ -70,6 +72,9 @@ export const App = () => {
     // set opacity of popup to 0 and remove blur from map
     mapDiv.style.filter = 'none';
     popupEl.style.opacity = '0';
+
+    // Remove search input
+    setText('');
     
     // set visibility to hidden of popup after opacity reaches 0
     // remove popupData
@@ -97,7 +102,7 @@ export const App = () => {
       <div className="title-box">
         <h1>Weather Lookup</h1>
       </div>
-      <SearchBox onSearch={handleSearch} />
+      <SearchBox text={text} setText={setText} onSearch={handleSearch} />
       <Map setMapInstance={setMapInstance} curMarker={curMarker} setCurMarker={setCurMarker} bookmarks={bookmarks} mapDiv={mapDiv} setMapDiv={setMapDiv} sendCoords={(coords) => handleMapClick(coords)} />
       <Popup bookmarked={bookmarked} setBookmarked={setBookmarked} onBookmark={handleBookmarkClick} onClose={handleCloseBtn} data={popupData} />
     </>
