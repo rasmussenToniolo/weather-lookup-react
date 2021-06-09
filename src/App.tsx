@@ -27,12 +27,11 @@ export const App = () => {
 
   const [text, setText] = useState('');
 
+  const [fromMarker, setFromMarker] = useState(false);
+
   function getBookmarks() {
     setBookmarks(JSON.parse(model.getLocalStorage() || '[]'));
   }
-
-  
-
 
   async function handleSearch(search: string) {
     if(!popupEl) return;
@@ -75,6 +74,7 @@ export const App = () => {
     if(!mapDiv) return;
 
     setCurMarker(undefined);
+    setFromMarker(false);
 
     
     // set opacity of popup to 0 and remove blur from map
@@ -97,8 +97,34 @@ export const App = () => {
   }
 
   function handleBookmarkClick() {
+    if(fromMarker) {
+      const newBookmarks = bookmarks.filter((bm: { data: { dateData: { dateTime: string; }; }; }) => bm.data.dateData.dateTime !== curData.data.dateData.dateTime);
+      model.setLocalStorage(newBookmarks);
+      setBookmarks(newBookmarks);
+      setFromMarker(false);
+      return;
+    }
+
     model.setLocalStorage([...bookmarks, curData]);
     setBookmarks([...bookmarks, curData]);
+  }
+
+  function removeBookmark(time: string) {
+    const newBookmarks = bookmarks.filter((bm: { data: { dateData: { dateTime: string; }; }; }) => bm.data.dateData.dateTime !== time);
+    setBookmarks(newBookmarks);
+    model.setLocalStorage(newBookmarks);
+  }
+
+  function openPopup(data: any) {
+    if(!popupEl) return;
+    setFromMarker(true);
+    popupEl.style.visibility = 'visible';
+    popupEl.style.opacity = '1';
+    setPopupData(data);
+    // console.log(data);
+    // console.log(bookmarks);
+    setCurData({coords: {lat: data.locationData.lat, lng: data.locationData.lng}, data});
+    setBookmarked(true);
   }
 
   useEffect(() => {
@@ -112,7 +138,7 @@ export const App = () => {
         <h1>Weather Lookup</h1>
       </div>
       <SearchBox text={text} setText={setText} onSearch={handleSearch} />
-      <Map setMapInstance={setMapInstance} curMarker={curMarker} setCurMarker={setCurMarker} bookmarks={bookmarks} mapDiv={mapDiv} setMapDiv={setMapDiv} sendCoords={(coords) => handleMapClick(coords)} />
+      <Map openPopup={openPopup} removeBookmark={removeBookmark} setMapInstance={setMapInstance} curMarker={curMarker} setCurMarker={setCurMarker} bookmarks={bookmarks} mapDiv={mapDiv} setMapDiv={setMapDiv} sendCoords={(coords) => handleMapClick(coords)} />
       <Popup bookmarked={bookmarked} setBookmarked={setBookmarked} onBookmark={handleBookmarkClick} onClose={handleCloseBtn} data={popupData} />
     </>
   )

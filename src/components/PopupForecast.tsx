@@ -1,20 +1,6 @@
+import {getDateStr, getTempC} from '../helpers';
+
 export const PopupForecast: React.FC<{data: any, getIcon: (id: number) => JSX.Element}> = (props) => {
-  // console.log(props.data);
-
-  function getDateStr(num: number) {
-
-    const date = new Date(+`${num}000`);
-  
-    const optionsDate:any = { weekday: "long", month: "long", day: "numeric" };
-  
-    const dateStr = date.toLocaleDateString("en-US", optionsDate);
-    return dateStr;
-  }
-
-  function getTempC(kTemp: number) {
-    return (Math.round(kTemp) - 273).toFixed();
-  }
-
 
   return (
     <div className="popup__data-forecast">

@@ -28,3 +28,18 @@ export const wait = async function (sec: number) {
     setTimeout(resolve, sec * 1000);
   });
 };
+
+export function getDateStr(num: number) {
+
+  const date = new Date(+`${num}000`);
+
+  const optionsDate:any = { weekday: "long", month: "long", day: "numeric" };
+
+  const dateStr = date.toLocaleDateString("en-US", optionsDate);
+  return dateStr;
+}
+
+export function getTempC(kTemp: number) {
+  return (Math.round(kTemp) - 273).toFixed();
+}
+
