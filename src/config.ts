@@ -11,7 +11,7 @@ export const LOCATION_API_URL = (coords: any) =>
   `https://geocode.xyz/${coords.lat},${coords.lng}?geoit=json`;
 
 export const COUNTRY_API_URL = (code: string) =>
-  `https://restcountries.eu/rest/v2/alpha/${code}ZZZ`;
+  `https://restcountries.eu/rest/v2/alpha/${code}`;
 
 const GEO_API_KEY = "bd123992c7ba49ef9f58de376d862487";
 export const DATE_TIME_API_URL = (timezone: string) =>
