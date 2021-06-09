@@ -172,6 +172,20 @@ body {
   }
 }
 
+@media (max-height: 600px) {
+  .popup {
+    transform: translate(-50%, 0) scale(0.55);
+    top: -2rem;
+  }
+}
+
+@media (max-height: 520px) {
+  .popup {
+    transform: translate(-50%, 0) scale(0.5);
+    top: -6rem;
+  }
+}
+
 
 @media (max-width: 700px) {
   .title-box h1 {
