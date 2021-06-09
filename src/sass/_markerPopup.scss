@@ -107,17 +107,20 @@
   }
 
   &__remove {
-    font-size: 1.4rem;
-    font-weight: 500;
     border: none;
     background-color: transparent;
     color: darken($high-temp-color, 40%);
-    text-shadow: 0 0 1rem rgba(0, 0, 0, 0.568);
-    transform: translateY(-6.8rem);
+    transform: translateY(-6.5rem);
     padding: .5rem;
     cursor: pointer;
     border-radius: 1rem;
     transition: color 200ms ease, background-color 200ms ease;
+
+    .bi {
+      width: 3rem;
+      height: 3rem;
+      transform: translateY(.1rem);
+    }
 
     &:hover {
       color: darken($high-temp-color, 20%);
@@ -130,8 +133,8 @@
     transform: translate(-1.8rem, -27.8rem);
     cursor: pointer;
     background-color: transparent;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.2rem;
+    height: 2.2rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -139,8 +142,8 @@
     filter: drop-shadow(0 0 2px black);
     
     .bi {
-      width: 2rem;
-      height: 2rem;
+      width: 1.8rem;
+      height: 1.8rem;
       color: $white;
       transition: transform 200ms ease;
     }

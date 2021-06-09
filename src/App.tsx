@@ -29,6 +29,13 @@ export const App = () => {
 
   const [fromMarker, setFromMarker] = useState(false);
 
+  const [error, setError] = useState(false);
+
+  const [curCoords, setCurCoords] = useState<any>();
+  const [curSearch, setCurSearch] = useState<string>('');
+
+  const [textSearch, setTextSearch] = useState<boolean>(false);
+
   function getBookmarks() {
     setBookmarks(JSON.parse(model.getLocalStorage() || '[]'));
   }
@@ -37,6 +44,9 @@ export const App = () => {
     if(!popupEl) return;
     popupEl.style.visibility = 'visible';
     popupEl.style.opacity = '1';
+    setCurSearch(search);
+    setTextSearch(true);
+
     try {
       const data = await model.fetchDataCity(search);
 
@@ -50,6 +60,7 @@ export const App = () => {
 
     } catch(err) {
       // Show retry button on popup
+      setError(true);
       console.log(err);
     }
   }
@@ -58,6 +69,8 @@ export const App = () => {
     if(!popupEl) return;
     popupEl.style.visibility = 'visible';
     popupEl.style.opacity = '1';
+    setCurCoords(coords);
+    setTextSearch(false);
     
     try {
       const data = await model.fetchData(coords);
@@ -65,6 +78,7 @@ export const App = () => {
       setPopupData(data);
     } catch(err) {
       // Show retry button on popup
+      setError(true);
       console.log(err);
     }
   }
@@ -75,6 +89,7 @@ export const App = () => {
 
     setCurMarker(undefined);
     setFromMarker(false);
+    setError(false);
 
     
     // set opacity of popup to 0 and remove blur from map
@@ -117,14 +132,20 @@ export const App = () => {
 
   function openPopup(data: any) {
     if(!popupEl) return;
+
     setFromMarker(true);
+
     popupEl.style.visibility = 'visible';
     popupEl.style.opacity = '1';
+
     setPopupData(data);
-    // console.log(data);
-    // console.log(bookmarks);
     setCurData({coords: {lat: data.locationData.lat, lng: data.locationData.lng}, data});
     setBookmarked(true);
+  }
+
+  function retry() {
+    if(textSearch) handleSearch(curSearch); else handleMapClick(curCoords);
+    setError(false);
   }
 
   useEffect(() => {
@@ -139,7 +160,7 @@ export const App = () => {
       </div>
       <SearchBox text={text} setText={setText} onSearch={handleSearch} />
       <Map openPopup={openPopup} removeBookmark={removeBookmark} setMapInstance={setMapInstance} curMarker={curMarker} setCurMarker={setCurMarker} bookmarks={bookmarks} mapDiv={mapDiv} setMapDiv={setMapDiv} sendCoords={(coords) => handleMapClick(coords)} />
-      <Popup bookmarked={bookmarked} setBookmarked={setBookmarked} onBookmark={handleBookmarkClick} onClose={handleCloseBtn} data={popupData} />
+      <Popup onRetry={retry} error={error} bookmarked={bookmarked} setBookmarked={setBookmarked} onBookmark={handleBookmarkClick} onClose={handleCloseBtn} data={popupData} />
     </>
   )
 }

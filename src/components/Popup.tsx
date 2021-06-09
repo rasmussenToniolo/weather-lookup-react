@@ -3,7 +3,7 @@ import {PopupForecast} from './PopupForecast';
 import {getIcon} from '../helpersJSX';
 
 
-export const Popup: React.FC<{data: any, onClose: (e:any) => void, onBookmark: () => void, setBookmarked: (bookmarkState: any) => void, bookmarked: boolean}> = (props) => {
+export const Popup: React.FC<{data: any, onClose: (e:any) => void, onBookmark: () => void, setBookmarked: (bookmarkState: any) => void, bookmarked: boolean, error: boolean, onRetry: () => void}> = (props) => {
 
   const [bookmarkHovered, setBookmarkHovered] = useState(false);
 
@@ -17,17 +17,24 @@ export const Popup: React.FC<{data: any, onClose: (e:any) => void, onBookmark: (
 
   return(
     <div className="popup">
-
       {!props.data ? 
-        
-        <div className="popup__loading">
-          <div className="loading-icon">
-            <div className="loading-icon__circle loading-icon__circle--1"></div>
-            <div className="loading-icon__circle loading-icon__circle--2"></div>
-            <div className="loading-icon__circle loading-icon__circle--3"></div>
+        props.error ? 
+          <div className="popup__error">
+            <p className="popup__error-msg">Something went wrong!<br />Please try again.</p>
+
+            <button onClick={props.onRetry} className="popup__error-retry-btn">Retry</button>
           </div>
-        </div>
         
+         : 
+
+          <div className="popup__loading">
+            <div className="loading-icon">
+              <div className="loading-icon__circle loading-icon__circle--1"></div>
+              <div className="loading-icon__circle loading-icon__circle--2"></div>
+              <div className="loading-icon__circle loading-icon__circle--3"></div>
+            </div>
+          </div>
+
         :
         
         <div className="popup__data">
