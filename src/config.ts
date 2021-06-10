@@ -1,4 +1,3 @@
-import { LatLng } from "leaflet";
 
 export const TIMEOUT_SEC = 10;
 // export const REQUEST_SEC = 5;

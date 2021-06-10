@@ -46,6 +46,9 @@ export const App = () => {
     popupEl.style.opacity = '1';
     setCurSearch(search);
     setTextSearch(true);
+    setBookmarked(false)
+    setPopupData(undefined);
+    if(mapDiv) mapDiv.style.filter = 'blur(.5rem)';
 
     try {
       const data = await model.fetchDataCity(search);
@@ -71,6 +74,8 @@ export const App = () => {
     popupEl.style.opacity = '1';
     setCurCoords(coords);
     setTextSearch(false);
+    setBookmarked(false)
+    setPopupData(undefined);
     
     try {
       const data = await model.fetchData(coords);
